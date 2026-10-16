@@ -448,38 +448,109 @@ test_file_descript <- function(metadata = load_metadata(directory)) {
 
 #' Test for CUI dissemination code
 #'
-#' @description `test_cui_dissemination()` examines EML metadata for the presence of a Controlled Unclassified Information (CUI) dissemination code. The function fails with an an error if the code does not exist or does not match a list of valid codes. If the valid code is not "PUBLIC" the test will produce a warning. A valid code results in a pass.
+#' @description `test_access()` examines EML metadata for the presence of
+#' a access information in additonalMetadata. The function fails with an
+#' error if access information does not exist. The function passes with a
+#' warning if the access information exists but is deprecated. The
+#' function fails with an error if the information exists but is invalid.
+#' The function passes with a warning if the access is correct but not public.
+#' The function passes without a warning if a current, valid public access
+#' statement exists.
 #'
 #' @inheritParams test_pub_date
 #'
-#' @return invisibly returns `metadata`
+#' @return invisibly returns NULL
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' test_cui_dissemination()
+#' test_access()
 #' }
-test_cui_dissemination <- function(metadata = load_metadata(directory)) {
+test_access <- function(metadata = load_metadata(directory)) {
   is_eml(metadata)
-  valid_codes <- c("PUBLIC", "NOCON", "DL ONLY", "FEDCON", "FED ONLY")
+  valid_codes <- c("PUBLIC", "PUBVER", "NOCON",
+                   "DL ONLY", "FEDCON", "FED ONLY")
+  valid_access <- c("PUBLIC", "INTERNAL", "RESTRICTED")
   # get all additionalMetadata elelements and all children elements
   diss_code <- EMLeditor::get_eml_simple(metadata, "CUI")
-  if (is.null(diss_code)) {
-    cli::cli_abort(c("x" = "Metadata does not contain a CUI dissemination code. Use {.fn EMLeditor::set_cui}."))
+  access_code <- EMLeditor::get_eml_simple(metadata, "accessLevel")
+
+
+  if (is.null(diss_code) && is.null(access_code)) {
+    cli::cli_abort(c("x" = paste0("Metadata does not contain permissions ",
+                                  "information. Use ",
+                                  "{.fn EMLeditor::set_permissions}.")))
   }
+  # check for legacy CUI:
   if (!is.null(diss_code)) {
-    if (!diss_code %in% valid_codes) {
-      cli::cli_abort(c("x" = "The CUI dissemination code {diss_code} is not a valid code. Use {.fn EMLeditor::set_cui}."))
-    }
     if (diss_code %in% valid_codes) {
-      cli::cli_inform(c("v" = "Metadata contains the valid CUI dissemination code {diss_code}."))
-    }
-    if (diss_code != "PUBLIC") {
-      cli::cli_warn(c("!" = "Metadata CUI dissemination code {crayon::red$bold(diss_code)} indicates the data package is NOT public. Are you sure?"))
+      cli::cli_warn(c("!" = paste0("The permissions specified in metadata are",
+                                   " deprecated. Please update the permissions",
+                                   " using {.fn EMLeditor::set_permissions}.")))
+      return(invisible(NULL))
     }
   }
-  return(invisible(metadata))
+  # test current permissions:
+  if (!is.null(access_code)) {
+    if (access_code %in% valid_access) {
+        cli::cli_inform(c("v" = paste0("Metadata contains the valid accesss ",
+                                       "code {access_code}.")))
+    }
+    if (access_code != "PUBLIC") {
+        cli::cli_warn(c("!" = paste0("Metadata access code ",
+                                     "{crayon::red$bold(access_code)} ",
+                                     "indicates the data package is NOT ",
+                                     "public. Are you sure?")))
+    }
+  }
+  return(invisible(NULL))
 }
+
+test_cui_label <- function(metadata = load_metadata(directory)) {
+  is_eml(metadata)
+
+  dist <- EMLeditor::get_eml_simple(metadata, "distribution")
+
+  if (is.null(dist)) {
+    cli::cli_abort(c(x = paste0("Your metadata lacks permissions information. ",
+                                "Use {.fn EMLeditor::set_permissions} to add ",
+                                "permissions information.")))
+  }
+
+  if (!"accessLevel" %in% names((dist))) {
+    cli::cli_abort(c(x = paste0("Your metadata lacks permissions or contains",
+                                " deprecated CUI information. Use {.fn ",
+                                "EMLeditor::set_permissions} to update your",
+                                " permissions.")))
+  }
+  if ("accessLevel" %in% names(dist)) {
+    if(dist[["accessLevel"]] == "PUBLIC") {
+      cli::cli_inform(c("v" = paste0("Permissions are set to PUBLIC. A CUI ",
+                                     "label is not required.")))
+      return(invisible(NULL))
+    } else {
+      label <- dist[["label"]]
+      if (is.null(label)) {
+        cli::cli_abort(c("x" = paste0("Your permissions are not set to public.",
+                                      " This requires a CUI label. Use {.fn ",
+                                      "EMLeditor::set_permissions to add a ",
+                                      "CUI label.")))
+      }
+      if (!is.null(label)) {
+        legal <- NPSdatastore::get_legal_authority()
+        if (!(label %in% legal$label)) {
+          cli::cli_abort(c("x" = paste0("Your permissions label is not valid.",
+                                        " use {.fn EMLeditor::set_permissions}",
+                                        "to set a valid permissions label.")))
+        } else {
+          cli::cli_inform(c("v" = paste0("Your permissions label is valid.")))
+        }
+      }
+    }
+  }
+}
+
+
 
 #' Test for presence of a license name
 #'
