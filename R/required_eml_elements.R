@@ -505,6 +505,24 @@ test_access <- function(metadata = load_metadata(directory)) {
   return(invisible(NULL))
 }
 
+#' Test for CUI label
+#'
+#' Fails if there is no permissions information or the permissions information
+#' is deprecated. Passes if the permissions information is public (label not
+#' required). Fails if permissions are not set to public and an CUI label is
+#' absent. Fails if the permissions are not set to public and the CUI label is
+#' invalid. Passes if the permissions are not set to public but a valid CUI
+#' label exists.
+#'
+#' @param metadata
+#'
+#' @returns NULL (invisibly)
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' test_cui_label()
+#' }
 test_cui_label <- function(metadata = load_metadata(directory)) {
   is_eml(metadata)
 
