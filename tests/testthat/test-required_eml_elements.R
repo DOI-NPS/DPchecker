@@ -35,6 +35,66 @@ test_that("test_access passes for properly specified internal access", {
   expect_no_error(test_access(meta2))
 })
 
+# ---- test cui label
+test_that("test_cui_label error on deprecated CUI", {
+  expect_error(test_cui_label(metadata = bicy_meta))
+})
+
+test_that("test_cui_label passes with public permissions", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta, "PUBLIC", force = TRUE)
+  expect_no_error(test_cui_label(meta2))
+})
+
+test_that("test_cui_label passes for properly formatted internal permissions", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta,
+                                      "INTERNAL",
+                                      legal_authority_id = 1,
+                                      contact_email = "no_one@nps.gov",
+                                      authority_designator = "fake name",
+                                      force = TRUE)
+  expect_no_error(test_cui_label(meta2))
+})
+
+# ---- test cui email
+test_that("test_cui_email error on deprecated CUI", {
+  expect_error(test_cui_email(metadata = bicy_meta))
+})
+
+test_that("test_cui_email passes with public permissions", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta, "PUBLIC", force = TRUE)
+  expect_no_error(test_cui_email(meta2))
+})
+
+test_that("test_cui_email passes for properly formatted internal permissions", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta,
+                                      "INTERNAL",
+                                      legal_authority_id = 1,
+                                      contact_email = "no_one@nps.gov",
+                                      authority_designator = "fake name",
+                                      force = TRUE)
+  expect_no_error(test_cui_email(meta2))
+})
+
+# ---- test_cui_designator
+test_that("test_cui_designator errors on deprecated CUI", {
+  expect_error(test_cui_designator(metadata = bicy_meta))
+})
+
+test_that("test_cui_designator passes with public permissions", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta, "PUBLIC", force = TRUE)
+  expect_no_error(test_cui_designator(meta2))
+})
+
+test_that("test_cui_designator passes with properly formatted internal permissions", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta,
+                                      "INTERNAL",
+                                      legal_authority_id = 1,
+                                      contact_email = "no_one@nps.gov",
+                                      authority_designator = "fake name",
+                                      force = TRUE)
+  expect_no_error(test_cui_designator(meta2))
+})
+
 
 # waiting on EMLeditor review before a bug fix PR can be merged to test properly:
 # test_that("test_set_permissions passes on valid access code", {
