@@ -318,7 +318,7 @@ test_dp_abstract <- function(metadata = load_metadata(directory)) {
     }
    if (nchar(abs) > 10000) {
      cli::cli_abort(c(
-      "x" = "The abstract must be less than 10,000 characters.
+      "x" = "The abstract must not exceed 10,000 characters.
       Please revise using {.fn EMLeditor::set_abstract}."))
    }
     x <- sapply(stringr::str_count(abs, "\\w+"), sum)
@@ -975,7 +975,7 @@ test_keywords <- function(metadata = load_metadata(directory)) {
     cli::cli_abort(c("x" = "No keywords detected. Metadata must contain at least one keyword."))
   } else {
     if (any(nchar(unlist(keywords)) > 150)) {
-      cli::cli_abort(c("x" = "Each keyword must be less than 150 characters."))
+      cli::cli_abort(c("x" = "Each keyword cannot exceed 150 characters."))
     }
     cli::cli_inform(c("v" = "Metadata contains keyword(s)."))
   }

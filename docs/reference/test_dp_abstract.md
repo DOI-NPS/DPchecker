@@ -3,7 +3,7 @@
 `test_dp_abstract()` inspects EML for presence of a data package
 abstract. The test Fails with an error if the abstract is absent or
 greater than 10,000 characters (required for data.gov). If the abstract
-is present, the test fails with a warning if the abstract is \<20 words,
+is present, the test passes with a warning if the abstract is \<20 words,
 \>250 words, or contains a subset of common characters that indicate
 improper formatting. Otherwise the test passes.
 
