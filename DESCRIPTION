@@ -33,10 +33,12 @@ Imports:
     QCkit,
     EMLeditor,
     lifecycle,
-    mockr
-Remotes: 
+    mockr,
+    NPSdatastore (>= 0.0.0.9004)
+Remotes:  
     https://github.com/doi-nps/QCkit,
-    https://github.com/doi-nps/EMLeditor
+    https://github.com/doi-nps/EMLeditor,
+    doi-nps/NPSdatastore
 URL: https://github.com/doi-nps/DPchecker, https://doi-nps.github.io/DPchecker/
 BugReports: https://github.com/doi-nps/DPchecker/issues
 Config/roxygen2/version: 8.0.0
