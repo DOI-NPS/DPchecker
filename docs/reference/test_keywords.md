@@ -20,7 +20,7 @@ test_keywords(metadata = load_metadata(directory))
 
 ## Value
 
-invisible(meatadatda)
+invisible(metadatda)
 
 ## Examples
 
