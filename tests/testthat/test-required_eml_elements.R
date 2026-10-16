@@ -32,7 +32,7 @@ test_that("test_access passes for properly specified internal access", {
                                       contact_email = "no_one@nps.gov",
                                       authority_designator = "fake name",
                                       force = TRUE)
-  expect_no_error(test_access(meta2))
+  expect_no_error(suppressWarnings(test_access(meta2)))
 })
 
 # ---- test cui label
