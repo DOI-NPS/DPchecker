@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
 [![CodeFactor](https://www.codefactor.io/repository/github/doi-nps/dpchecker/badge)](https://www.codefactor.io/repository/github/doi-nps/dpchecker)
 [![R-CMD-check](https://github.com/doi-nps/DPchecker/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/doi-nps/DPchecker/actions/workflows/R-CMD-check.yaml)
 [![R-CMD-check](https://github.com/DOI-NPS/DPchecker/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/DOI-NPS/DPchecker/actions/workflows/R-CMD-check.yaml)
