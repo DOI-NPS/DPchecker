@@ -16,9 +16,25 @@ test_that("test_pub_date works on good pub dates", {
 })
 
 # ----- test_access
-test_that("test_set_permissions warns on legacy permissions", {
+test_that("test_access warns on legacy permissions", {
   expect_warning(test_access(metadata = bicy_meta))
 })
+
+test_that("test_access passes for properly specified public access", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta, "PUBLIC", force = TRUE)
+  expect_no_error(test_access(meta2))
+})
+
+test_that("test_access passes for properly specified internal access", {
+  meta2 <- EMLeditor::set_permissions(bicy_meta,
+                                      "INTERNAL",
+                                      legal_authority_id = 1,
+                                      contact_email = "no_one@nps.gov",
+                                      authority_designator = "fake name",
+                                      force = TRUE)
+  expect_no_error(test_access(meta2))
+})
+
 
 # waiting on EMLeditor review before a bug fix PR can be merged to test properly:
 # test_that("test_set_permissions passes on valid access code", {
