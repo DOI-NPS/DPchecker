@@ -514,9 +514,9 @@ test_access <- function(metadata = load_metadata(directory)) {
 #' invalid. Passes if the permissions are not set to public but a valid CUI
 #' label exists.
 #'
-#' @param metadata
+#' @inheritParams test_pub_date
 #'
-#' @returns NULL (invisibly)
+#' @returns NULL(invisibly)
 #' @export
 #'
 #' @examples
@@ -567,7 +567,115 @@ test_cui_label <- function(metadata = load_metadata(directory)) {
   }
 }
 
+#' Tests for presence of a email in permissions/cui designation
+#'
+#' This function
+#'
+#' @inheritParams test_pub_date
+#'
+#' @returns null (invisibly)
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' test_cui_email()
+#' }
+test_cui_email <- function(metadata = load_metadata(directory))  {
+  is_eml(metadata)
 
+  dist <- EMLeditor::get_eml_simple(metadata, "distribution")
+
+  if (is.null(dist)) {
+    cli::cli_abort(c(x = paste0("Your metadata lacks permissions information. ",
+                                "Use {.fn EMLeditor::set_permissions} to add ",
+                                "permissions information.")))
+  }
+
+  if (!"accessLevel" %in% names((dist))) {
+    cli::cli_abort(c(x = paste0("Your metadata lacks permissions or contains",
+                                " deprecated CUI information. Use {.fn ",
+                                "EMLeditor::set_permissions} to update your",
+                                " permissions.")))
+  }
+  if ("accessLevel" %in% names(dist)) {
+    if(dist[["accessLevel"]] == "PUBLIC") {
+      cli::cli_inform(c("v" = paste0("Permissions are set to PUBLIC. An email ",
+                                     "associated with the permissions is not ",
+                                     "required.")))
+      return(invisible(NULL))
+    } else {
+      contact <- dist[["contactEmail"]]
+      if (is.null(contact)) {
+        cli::cli_abort(c("x" = paste0("Your permissions are not set to public.",
+                                      " This requires a contact email. Use ",
+                                      "{.fn EMLeditor::set_permissions to add ",
+                                      "a contact email.")))
+      } else {
+        if (grepl('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
+                  contact)) {
+          cli::cli_inform(c("v" = paste0("Your permissions contain an valid-",
+                                         "looking email address, {contact}.")))
+          return(invisible(NULL))
+        } else {
+          cli::cli_abort(c("x" = paste0("Your permissions contain an invalid ",
+                                        "looking email address, {contact}. ",
+                                        "use {.fn EMLeditor::set_permissions}",
+                                        "to supply a valid email address.")))
+          return(invisible(NULL))
+        }
+      }
+    }
+  }
+}
+
+test_cui_designator <- function(metadata = load_metadata(directory))  {
+  is_eml(metadata)
+
+  dist <- EMLeditor::get_eml_simple(metadata, "distribution")
+
+  if (is.null(dist)) {
+    cli::cli_abort(c(x = paste0("Your metadata lacks permissions information. ",
+                                "Use {.fn EMLeditor::set_permissions} to add ",
+                                "permissions information.")))
+  }
+
+  if (!"accessLevel" %in% names((dist))) {
+    cli::cli_abort(c(x = paste0("Your metadata lacks permissions or contains",
+                                " deprecated CUI information. Use {.fn ",
+                                "EMLeditor::set_permissions} to update your",
+                                " permissions.")))
+  }
+  if ("accessLevel" %in% names(dist)) {
+    if(dist[["accessLevel"]] == "PUBLIC") {
+      cli::cli_inform(c("v" = paste0("Permissions are set to PUBLIC. A ",
+                                     "designator for the authorit to withold ",
+                                     "is not required.")))
+      return(invisible(NULL))
+    } else {
+      authority <- dist[["authorityDesignator"]]
+      if (is.null(authority)) {
+        cli::cli_abort(c("x" = paste0("Your permissions are not set to public.",
+                                      " This requires designating a specific ",
+                                      "person (\"authority designator\") who ",
+                                      "is responsible for designating the data",
+                                      " non-public. Use ",
+                                      "{.fn EMLeditor::set_permissions to add ",
+                                      "a person's name who has determined that",
+                                      "the data contain information that ",
+                                      "warrants witholding it from the ",
+                                      "public.")))
+      } else {
+        cli::cli_inform(c("v" = paste0("Your permissions contain a ",
+                                      "designated authority who is responsible",
+                                      "for having determined that the data ",
+                                      "should be witheld from the public. This",
+                                      " person is: ",
+                                      "{(EMLeditor:::.strong_good(authority))}.")))
+        return(invisible(NULL))
+      }
+    }
+  }
+}
 
 #' Test for presence of a license name
 #'
