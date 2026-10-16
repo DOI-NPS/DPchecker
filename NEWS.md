@@ -1,4 +1,9 @@
-# DPchecker 1.1.1
+# DPchecker 1.2.0
+## 2026-10-06
+  * remove `test_cui_dissemination` and update with `test_permissions`
+  * add unit tests for `set_permissions`
+  * add set_permissions to `run_congruence_checks` list
+  
 ## 2026-04-22
   * Documentation (URLs mostly) and metadata (code.json added) updates in preparationfor migration to DGEC.
   
