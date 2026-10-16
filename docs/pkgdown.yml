@@ -1,6 +1,6 @@
 pandoc: 3.6.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   DPchecker: DPchecker.html
-last_built: 2026-05-19T16:58Z
+last_built: 2026-10-06T22:16Z

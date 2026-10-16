@@ -21,6 +21,9 @@ Useful links:
 
 Authors:
 
+- Rob Baker <robert_baker@nps.gov>
+  ([ORCID](https://orcid.org/0000-0001-7591-5035))
+
 - Sarah E. Wright <sarah_wright@nps.gov>
 
 Other contributors:

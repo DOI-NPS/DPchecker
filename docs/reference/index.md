@@ -16,8 +16,6 @@
   unit links
 - [`test_creator()`](test_creator.md) : Test for presence of creator and
   surName
-- [`test_cui_dissemination()`](test_cui_dissemination.md) : Test for CUI
-  dissemination code
 - [`test_datatable_urls()`](test_datatable_urls.md) : Checks for
   consistency in data file URLs
 - [`test_datatable_urls_doi()`](test_datatable_urls_doi.md) : Tests for
@@ -67,6 +65,8 @@
   creator matches the ORCiD profile
 - [`test_orcid_resolves()`](test_orcid_resolves.md) : Test whether
   supplied Creator ORCiDs resolve to a valid ORCiD profile
+- [`test_permissions()`](test_permissions.md) : Test for CUI
+  dissemination code
 - [`test_pii_data_emails()`](test_pii_data_emails.md) : Check data files
   for PII (emails)
 - [`test_pii_meta_emails()`](test_pii_meta_emails.md) : Check metadata

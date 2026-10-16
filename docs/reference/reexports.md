@@ -5,4 +5,4 @@ to see their documentation.
 
 - QCkit:
 
-  [`convert_datetime_format`](https://rdrr.io/pkg/QCkit/man/convert_datetime_format.html)
+  [`convert_datetime_format()`](https://rdrr.io/pkg/QCkit/man/convert_datetime_format.html)

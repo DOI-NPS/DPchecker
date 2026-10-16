@@ -110,7 +110,7 @@ These tests ensure that the EML elements necessary for DataStore to properly ext
 * Metadata contains a well formatted abstract for the data package ([`test_dp_abstract()`](../reference/test_dp_abstract.html))
 * Metadata contains a well formatted methods section for the data package ([`test_methods()`](../reference/test_methods.html))
 * All dataTables listed in metadata have a unique file description ([`test_file_descript()`](../reference/test_file_descript.html))
-* Metadata contains a valid CUI code ([`test_cui_dissemination()`](../reference/test_cui_dissemination.html))
+* Metadata contains a valid CUI code ([`test_permissions()`](../reference/test_permissions.html))
 * Metadata contains a valid license name ([`test_license()`](../reference/test_license.html))
 * Metadata contains an Intellectual Rights statement ([`test_int_rights()`](../reference/test_int_rights.html))
 * All attributes listed in metadata have attribute definitions ([`test_attribute_defs()`](../reference/test_attribute_defs.html))

@@ -21,7 +21,6 @@
 <url><loc>/reference/test_by_for_nps.html</loc></url>
 <url><loc>/reference/test_content_units.html</loc></url>
 <url><loc>/reference/test_creator.html</loc></url>
-<url><loc>/reference/test_cui_dissemination.html</loc></url>
 <url><loc>/reference/test_datatable_urls.html</loc></url>
 <url><loc>/reference/test_datatable_urls_doi.html</loc></url>
 <url><loc>/reference/test_datatable_url_attributes.html</loc></url>
@@ -51,6 +50,7 @@
 <url><loc>/reference/test_orcid_format.html</loc></url>
 <url><loc>/reference/test_orcid_match.html</loc></url>
 <url><loc>/reference/test_orcid_resolves.html</loc></url>
+<url><loc>/reference/test_permissions.html</loc></url>
 <url><loc>/reference/test_pii_data_emails.html</loc></url>
 <url><loc>/reference/test_pii_meta_emails.html</loc></url>
 <url><loc>/reference/test_project.html</loc></url>

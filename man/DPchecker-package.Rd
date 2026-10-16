@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Rob Baker \email{robert_baker@nps.gov} (\href{https://orcid.org/0000-0001-7591-5035}{ORCID})
   \item Sarah E. Wright \email{sarah_wright@nps.gov}
 }
 

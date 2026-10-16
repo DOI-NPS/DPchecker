@@ -191,7 +191,7 @@ and do not require that the data files be present.
 - All dataTables listed in metadata have a unique file description
   ([`test_file_descript()`](../reference/test_file_descript.md))
 - Metadata contains a valid CUI code
-  ([`test_cui_dissemination()`](../reference/test_cui_dissemination.md))
+  ([`test_permissions()`](../reference/test_permissions.md))
 - Metadata contains a valid license name
   ([`test_license()`](../reference/test_license.md))
 - Metadata contains an Intellectual Rights statement
