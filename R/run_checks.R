@@ -360,7 +360,17 @@ run_congruence_checks <- function(directory = here::here(),
              cli::cli_bullets(c(w$message, w$body))
            }
   )
-  tryCatch(test_permissions(metadata),
+  tryCatch(test_access(metadata),
+           error = function(e) {
+             err_count <<- err_count + 1
+             cli::cli_bullets(c(e$message, e$body))
+           },
+           warning = function(w) {
+             warn_count <<- warn_count + 1
+             cli::cli_bullets(c(w$message, w$body))
+           }
+  )
+  tryCatch(test_cui_label(metadata),
            error = function(e) {
              err_count <<- err_count + 1
              cli::cli_bullets(c(e$message, e$body))
