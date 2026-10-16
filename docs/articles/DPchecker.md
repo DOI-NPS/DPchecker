@@ -190,8 +190,15 @@ and do not require that the data files be present.
   package ([`test_methods()`](../reference/test_methods.md))
 - All dataTables listed in metadata have a unique file description
   ([`test_file_descript()`](../reference/test_file_descript.md))
-- Metadata contains a valid CUI code
-  ([`test_permissions()`](../reference/test_permissions.md))
+- Metadata contains a access statement
+  ([`test_access()`](../reference/test_access.md))
+- Metadata contains a valid CUI label, if non-public
+  ([`test_cui_label()`](../reference/test_cui_label.md))
+- Metadata contains a contact email for CUI, if non-public
+  ([`test_cui_email()`](../reference/test_cui_email.md))
+- Metadata contains the name of a designator for restricting data, if
+  non-public
+  ([`test_cui_designator()`](../reference/test_cui_designator.md))
 - Metadata contains a valid license name
   ([`test_license()`](../reference/test_license.md))
 - Metadata contains an Intellectual Rights statement

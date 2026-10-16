@@ -117,6 +117,12 @@ run_congruence_checks(dir)
 #> description.
 #> ! The permissions specified in metadata are deprecated. Please update the
 #> permissions using `EMLeditor::set_permissions()`.
+#> ✖ Your metadata lacks permissions or contains deprecated CUI information. Use
+#>   `EMLeditor::set_permissions()` to update your permissions.
+#> ✖ Your metadata lacks permissions or contains deprecated CUI information. Use
+#>   `EMLeditor::set_permissions()` to update your permissions.
+#> ✖ Your metadata lacks permissions or contains deprecated CUI information. Use
+#>   `EMLeditor::set_permissions()` to update your permissions.
 #> ✖ Metadata does not contain a license name. Use `EMLeditor::set_int_rights()`
 #>   to add a license name.
 #> ✔ Metadata contains an Intellectual Rights statement.
@@ -159,6 +165,6 @@ run_congruence_checks(dir)
 #> 
 #> ── Summary ──
 #> 
-#> ✖ 2 errors to address
+#> ✖ 5 errors to address
 #> ! 9 warnings to look into
 ```
