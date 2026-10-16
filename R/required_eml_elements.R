@@ -498,9 +498,8 @@ test_access <- function(metadata = load_metadata(directory)) {
     }
     if (access_code != "PUBLIC") {
         cli::cli_warn(c("!" = paste0("Metadata access code ",
-                                     "{crayon::red$bold(access_code)} ",
-                                     "indicates the data package is NOT ",
-                                     "public. Are you sure?")))
+                                     "{access_code} indicates the data ",
+                                     "package is NOT public. Are you sure?")))
     }
   }
   return(invisible(NULL))
