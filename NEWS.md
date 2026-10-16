@@ -1,4 +1,8 @@
 # DPchecker 1.2.0
+## 2026-10-16
+  * remove `test_permissions`
+  * add `test_access`, `test_cui_label`, `test_cui_email`, and `test_cui_designator`
+  
 ## 2026-10-06
   * remove `test_cui_dissemination` and update with `test_permissions`
   * add unit tests for `set_permissions`
