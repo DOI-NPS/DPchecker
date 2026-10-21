@@ -648,7 +648,7 @@ test_cui_designator <- function(metadata = load_metadata(directory))  {
   if ("accessLevel" %in% names(dist)) {
     if(dist[["accessLevel"]] == "PUBLIC") {
       cli::cli_inform(c("v" = paste0("Permissions are set to PUBLIC. A ",
-                                     "designator for the authorit to withold ",
+                                     "designator for the authority to withhold ",
                                      "is not required.")))
       return(invisible(NULL))
     } else {
