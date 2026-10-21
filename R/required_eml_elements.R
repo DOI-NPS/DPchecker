@@ -668,7 +668,7 @@ test_cui_designator <- function(metadata = load_metadata(directory))  {
         cli::cli_inform(c("v" = paste0("Your permissions contain a ",
                                       "designated authority who is responsible ",
                                       "for having determined that the data ",
-                                      "should be witheld from the public. This",
+                                      "should be withheld from the public. This",
                                       " person is: ",
                                       "{(EMLeditor:::.strong_good(authority))}.")))
         return(invisible(NULL))
