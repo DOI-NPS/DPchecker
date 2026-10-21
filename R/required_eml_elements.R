@@ -648,7 +648,7 @@ test_cui_designator <- function(metadata = load_metadata(directory))  {
   if ("accessLevel" %in% names(dist)) {
     if(dist[["accessLevel"]] == "PUBLIC") {
       cli::cli_inform(c("v" = paste0("Permissions are set to PUBLIC. A ",
-                                     "designator for the authorit to withold ",
+                                     "designator for the authority to withhold ",
                                      "is not required.")))
       return(invisible(NULL))
     } else {
@@ -666,9 +666,9 @@ test_cui_designator <- function(metadata = load_metadata(directory))  {
                                       "public.")))
       } else {
         cli::cli_inform(c("v" = paste0("Your permissions contain a ",
-                                      "designated authority who is responsible",
+                                      "designated authority who is responsible ",
                                       "for having determined that the data ",
-                                      "should be witheld from the public. This",
+                                      "should be withheld from the public. This",
                                       " person is: ",
                                       "{(EMLeditor:::.strong_good(authority))}.")))
         return(invisible(NULL))
