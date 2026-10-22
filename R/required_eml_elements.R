@@ -614,7 +614,8 @@ test_cui_email <- function(metadata = load_metadata(directory))  {
         if (grepl('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
                   contact)) {
           cli::cli_inform(c("v" = paste0("Your permissions contain an valid-",
-                                         "looking email address, {contact}.")))
+                                         "looking email address, {(EMLeditor",
+                                         ":::.strong_good(contact))}.")))
           return(invisible(NULL))
         } else {
           cli::cli_abort(c("x" = paste0("Your permissions contain an invalid ",
@@ -648,8 +649,8 @@ test_cui_designator <- function(metadata = load_metadata(directory))  {
   if ("accessLevel" %in% names(dist)) {
     if(dist[["accessLevel"]] == "PUBLIC") {
       cli::cli_inform(c("v" = paste0("Permissions are set to PUBLIC. A ",
-                                     "designator for the authority to withhold ",
-                                     "is not required.")))
+                                     "designator for the authority to withhold",
+                                     " is not required.")))
       return(invisible(NULL))
     } else {
       authority <- dist[["authorityDesignator"]]
@@ -666,11 +667,12 @@ test_cui_designator <- function(metadata = load_metadata(directory))  {
                                       "public.")))
       } else {
         cli::cli_inform(c("v" = paste0("Your permissions contain a ",
-                                      "designated authority who is responsible ",
-                                      "for having determined that the data ",
-                                      "should be withheld from the public. This",
-                                      " person is: ",
-                                      "{(EMLeditor:::.strong_good(authority))}.")))
+                                      "designated authority who is responsible",
+                                      " for having determined that the data ",
+                                      "should be withheld from the public. ",
+                                      "This person is: ",
+                                      "{(EMLeditor:::.strong_good(authority))}."
+                                      )))
         return(invisible(NULL))
       }
     }
@@ -700,30 +702,73 @@ test_license <- function(metadata = load_metadata(directory)) {
 
   license <- metadata$dataset$licensed$licenseName
   if (is.null(license)) {
-    cli::cli_abort(c("x" = "Metadata does not contain a license name. Use {.fn EMLeditor::set_int_rights} to add a license name."))
+    cli::cli_abort(c("x" = paste0("Metadata does not contain a license name. ",
+                                  "Use {.fn EMLeditor::set_int_rights} to add ",
+                                  "a license name.")))
   }
   if (!is.null(license)) {
     if (!license %in% license_list) {
-      cli::cli_abort(c(
-        "x" = "The metadata does not contain a valid license name. Use {.fn EMLeditor::set_int_rights} to add a valid license name."
-      ))
+      cli::cli_abort(c("x" = paste0("The metadata does not contain a valid ",
+                                    "license name. Use {.fn EMLeditor::",
+                                    "set_int_rights} to add a valid license ",
+                                    "name.")))
     }
     if (license %in% license_list) {
+      #legacy CUI information:
       diss_code <- EMLeditor::get_eml_simple(metadata, "CUI")
-      if (diss_code == "PUBLIC" & license == "No License/Controlled Unclassified Information") {
-        cli::cli_abort(c(
-          "x" = "Metadata license and CUI dissemination code do not agree. Use {.fn EMLeditor::set_int_rights} or {.fn EMLeditor::set_cui}."
-        ))
-      } else if (diss_code != "PUBLIC" & license != "Unlicensed (not for public dissemination)") {
-        cli::cli_abort(c(
-          "x" = "Metadata license and CUI dissemination code do not agree. Use {.fn EMLeditor::set_int_rights} or {.fn EMLeditor::set_cui}."
-        ))
-      } else {
-        cli::cli_inform(c("v" = "Metadata contains a valid license name."))
+      if (!is.null(diss_code)) {
+        cli::cli_abort(c("x" = paste0("Metadata contains deprecated ",
+                                       "permissions statement that cannot be ",
+                                       "matched to an existing license. ",
+                                       "use {.fn EMLeditor::set_permissions} ",
+                                       "to update your permissions and then ",
+                                       "use {.fn EMLeditor::set_int_rights} ",
+                                       "to update corresponding intellectual ",
+                                       "rights and license names.")))
+        return(invisible(metadata))
       }
-      if (license == "Unlicensed (not for public dissemination)") {
-        cli::cli_warn(c("!" = "Metadata license name indicates that the data package is NOT public. Are you sure?"))
+      #missing permissions cannot be matched to a license
+      access_level <- EMLeditor::get_eml_simple(metadata, "accessLevel")
+      if (is.null(access_level)) {
+        cli::cli_abort(c("x" = paste0("Metadata does not contain permissions",
+                                       "to match to a license. Use {.fn ",
+                                       "EMLeditor::set_permissions} to add ",
+                                       "permissions and then {.fn ",
+                                       "EMLeditor::set_int_rights} to add ",
+                                       "a corresponding intellectural rights ",
+                                       "statement and license name.")))
+        return(invisible(metadata))
       }
+      if (access_level == "PUBLIC" &&
+          license == "No License/Controlled Unclassified Information") {
+        cli::cli_abort(c("x" = paste0("Metadata license and access level ",
+                                      "do not agree. Use {.fn EMLeditor",
+                                      "::set_int_rights} and/or {.fn EMLeditor",
+                                      "::set_permissions} to update your ",
+                                      "access level and/or metadata license.")))
+        return(invisible(metadata))
+      } else if (access_level != "PUBLIC" &&
+                 license != "Unlicensed (not for public dissemination)") {
+        cli::cli_abort(c("x" = paste0("Metadata license and access level do ",
+                                      "not agree. Use {.fn EMLeditor::",
+                                      "set_int_rights} and/or {.fn EMLeditor::",
+                                      "set_permissions} to update your access ",
+                                      "level and/or metadata license.")))
+      }
+    }
+    if (access_level == "PUBLIC" && (license == "Creative Commons Zero v1.0 Universal" | license == "Public Domain")) {
+        cli::cli_inform(c("v" = paste0("Metadata contains a valid license ",
+                                       "and license name that match the ",
+                                       "access level.")))
+      return(invisible(metadata))
+    }
+    if (license == "Unlicensed (not for public dissemination)") {
+      cli::cli_inform(c("v" = paste0("Metadata contains a valid license ",
+                                     "and license name that match the ",
+                                     "access level.")))
+      cli::cli_warn(c("!" = paste0("Metadata license name indicates that ",
+                                   "the data package is NOT public. Are you ",
+                                   "sure?")))
     }
   }
   return(invisible(metadata))
@@ -746,7 +791,9 @@ test_int_rights <- function(metadata = load_metadata(directory)) {
   is_eml(metadata)
   int_rights <- metadata$dataset$intellectualRights
   if (is.null(int_rights)) {
-    cli::cli_abort(c("x" = "Metadata lacks an Intellectual Rights statemet. Use {.fn EMLeditor::set_int_rights}."))
+    cli::cli_abort(c("x" = paste0("Metadata lacks an Intellectual Rights ",
+                                  "statemet. Use {.fn EMLeditor::",
+                                  "set_int_rights}.")))
   } else {
     cli::cli_inform(c(
       "v" = "Metadata contains an Intellectual Rights statement."
