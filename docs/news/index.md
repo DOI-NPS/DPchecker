@@ -1,5 +1,12 @@
 # Changelog
 
+## DPchecker 1.2.1
+
+### 2026-10-26
+
+- update `run_congruence_checks` to output appropriate content for
+  breezeml shiny app
+
 ## DPchecker 1.2.0
 
 ### 2026-10-16
@@ -17,7 +24,7 @@
 ### 2026-04-22
 
 - Documentation (URLs mostly) and metadata (code.json added) updates in
-  preparationfor migration to DGEC.
+  preparation for migration to DGEC.
 
 ### 2025-07-11
 

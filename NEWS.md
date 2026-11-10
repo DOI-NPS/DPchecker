@@ -1,3 +1,7 @@
+# DPchecker 1.2.1 
+## 2026-10-26
+  * update `run_congruence_checks` to output appropriate content for breezeml shiny app
+
 # DPchecker 1.2.0
 ## 2026-10-16
   * remove `test_permissions`
@@ -9,7 +13,7 @@
   * add set_permissions to `run_congruence_checks` list
   
 ## 2026-04-22
-  * Documentation (URLs mostly) and metadata (code.json added) updates in preparationfor migration to DGEC.
+  * Documentation (URLs mostly) and metadata (code.json added) updates in preparation for migration to DGEC.
   
 ## 2025-07-11
   * Fix bug in `test_datatable_urls_doi()` and `test_datatable_url_attributes()`

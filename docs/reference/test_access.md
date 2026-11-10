@@ -1,6 +1,6 @@
 # Test for CUI dissemination code
 
-`test_access()` examines EML metadata for the presence of access
+`test_access()` examines EML metadata for the presence of a access
 information in additonalMetadata. The function fails with an error if
 access information does not exist. The function passes with a warning if
 the access information exists but is deprecated. The function fails with

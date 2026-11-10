@@ -34,8 +34,9 @@ Imports:
     QCkit,
     EMLeditor (>= 1.3.0),
     lifecycle,
-    NPSdatastore (>= 0.0.0.9004)
-Remotes:  
+    NPSdatastore (>= 0.0.0.9004),
+    rlang
+Remotes: 
     doi-nps/QCkit,
     doi-nps/EMLeditor@1.3.0,
     doi-nps/NPSdatastore
