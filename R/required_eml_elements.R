@@ -313,7 +313,7 @@ test_dp_abstract <- function(metadata = load_metadata(directory)) {
     abs <- NULL
     for (i in seq_along(abstract)) {
       if (nchar(abstract[i]) > 0) {
-        abs <- append(abs[1], abstract[[i]])
+        abs <- append(abs, abstract[[i]])
       }
     }
 
