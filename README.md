@@ -1,6 +1,4 @@
 <!-- badges: start -->
-
-[![CodeFactor](https://www.codefactor.io/repository/github/roblbaker/dpchecker/badge)](https://www.codefactor.io/repository/github/roblbaker/dpchecker)
 [![R-CMD-check](https://github.com/doi-nps/DPchecker/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/doi-nps/DPchecker/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 

@@ -316,15 +316,16 @@ test_dp_abstract <- function(metadata = load_metadata(directory)) {
         abs <- append(abs, abstract[[i]])
       }
     }
-   if (nchar(abs) > 10000) {
-     cli::cli_abort(c(
-      "x" = "The abstract must not exceed 10,000 characters.
-      Please revise using {.fn EMLeditor::set_abstract}."))
-   }
+
     x <- sapply(stringr::str_count(abs, "\\w+"), sum)
     # x <- sapply(strsplit(abs, "" ), length)
     x <- sum(x) # sums up all words across potential multiple paragraphs
     z <- NULL # tracking for warnings
+    if (x > 10000) {
+      cli::cli_abort(c(
+        "x" = "The abstract must not exceed 10,000 characters.
+      Please revise using {.fn EMLeditor::set_abstract}."))
+    }
     if (x < 20) {
       cli::cli_warn(c(
         "!" = "The data package abstract is less than 20 words.
@@ -1007,7 +1008,7 @@ test_creator <- function(metadata = load_metadata(directory)) {
 #'
 #' @inheritParams test_pub_date
 #'
-#' @return invisible(metadatda)
+#' @return invisible(metadata)
 #' @export
 #'
 #' @examples

@@ -27,7 +27,29 @@ run_congruence_checks(
 \item{output_dir}{Location in which to save the output file, if using.}
 }
 \value{
-Invisibly returns \code{metadata}.
+Invisibly returns a named integer vector
+\verb{c(errors = <n>, warnings = <n>)} (unchanged from prior versions for
+any existing caller). Additionally carries a \code{"checks"} attribute: a
+list with one element per check that actually ran, each of the form
+\verb{list(check = <name>, status = "pass"/"warn"/"fail", message = <chr>)},
+in execution order. \code{message} is the raw condition text the check
+raised (\code{c(cond$message, cond$body)}) for a warn/fail, or NULL for a
+pass - i.e. the same content printed to the console, minus cli's
+visual formatting. The attribute is purely additive - it does not
+affect the vector's value, names, class, or indexing, so existing
+console/script use is unaffected. Intended for programmatic consumers
+(e.g. a Shiny GUI) that need a per-check readout - including the
+reason for a warn/fail - rather than parsing console output.
+
+If a GATEKEEPER check fails (load_metadata, validate_schema,
+dup_meta_entries, file_name_match, fields_match), the function aborts
+as before - it does NOT return. In that case the same per-check list
+(including the failing gatekeeper, with its message, and every check
+that ran before it) is attached to the thrown condition as a \verb{$checks}
+field, recoverable via tryCatch(error = function(e) e$checks). The
+console output of the abort is unchanged (the extra condition field is
+metadata, not message text; the message is still rendered with cli
+formatting via rlang::abort(..., use_cli_format = TRUE)).
 }
 \description{
 Run all congruence checks
