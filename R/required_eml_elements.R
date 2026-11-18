@@ -1008,7 +1008,7 @@ test_creator <- function(metadata = load_metadata(directory)) {
 #'
 #' @inheritParams test_pub_date
 #'
-#' @return invisible(metadatda)
+#' @return invisible(metadata)
 #' @export
 #'
 #' @examples
